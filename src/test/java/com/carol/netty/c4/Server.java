@@ -5,9 +5,9 @@ import lombok.extern.slf4j.Slf4j;
 import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.nio.ByteBuffer;
-import java.nio.channels.ServerSocketChannel;
-import java.nio.channels.SocketChannel;
+import java.nio.channels.*;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import static com.carol.netty.c1.ByteBufferUtil.debugRead;
@@ -15,7 +15,46 @@ import static com.carol.netty.c1.ByteBufferUtil.debugRead;
 @Slf4j
 public class Server {
 
+    /**
+     * selector模式
+     * @param args
+     * @throws IOException
+     */
     public static void main(String[] args) throws IOException {
+        // 1.创建Selector 可以管理多个 channel
+        Selector selector = Selector.open();
+
+
+        ByteBuffer buffer = ByteBuffer.allocate(16);
+        ServerSocketChannel serverSocketChannel = ServerSocketChannel.open();
+        serverSocketChannel.configureBlocking(false);
+
+        // 2.建立Selector和channel的联系 将channel注册到selector
+        // selectionKey就是事件发生后，通过它得到是哪个channel发生的事件
+        // 注册后 selector就可以监听事件的发送，监听到某个channel事件的发生，就会放到selectionKey中
+        SelectionKey sscKey = serverSocketChannel.register(selector, 0, null);// serverSocketChannel的key
+        // 指定监听事件 key只关注accept事件
+        sscKey.interestOps(SelectionKey.OP_ACCEPT);
+        log.debug("register key:{}",sscKey);
+
+        serverSocketChannel.bind(new InetSocketAddress(8080));
+        while (true){
+            // 3.selector的select方法
+            selector.select();//没有事件发生就会让线程阻塞 只有四种事件其中一个发生了才会让线程继续
+            // 4.处理事件 selectedKeys 拿到一个事件集 内部包含了所有发生的事件 返回一个Set集合 注意是发生的事件！！！
+            // 要在集合中删除元素的遍历要使用迭代器进行循环 不要用 增强for
+            Iterator<SelectionKey> iterator = selector.selectedKeys().iterator();
+            while (iterator.hasNext()){
+                 // 拿到一个发生的事件
+                SelectionKey key = iterator.next();
+                ServerSocketChannel channel =(ServerSocketChannel) key.channel();
+                SocketChannel socketChannel = channel.accept();
+                log.debug("socketChannel {}",socketChannel);
+            }
+        }
+    }
+
+    public static void main2(String[] args) throws IOException {
         // 使用 NIO 非阻塞
         // 0.ByteBuffer
         ByteBuffer buffer = ByteBuffer.allocate(16);
