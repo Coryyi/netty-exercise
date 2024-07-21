@@ -13,11 +13,36 @@ import java.util.concurrent.atomic.AtomicInteger;
  */
 @Slf4j
 public class TestFilesWalkFileTree {
+    public static void main(String[] args) throws IOException {
+        String source = "D:\\Netty学习\\Netty教程源码资料 - 副本";
+        String target = "D:\\Netty学习\\Netty教程源码资料 - 副本1";
+
+        Files.walk(Paths.get(source)).forEach(dir->{
+            String targetName = dir.toString().replace(source,target);//要操作的目录或文件名
+            Path path = Paths.get(targetName);
+            if (Files.isDirectory(dir)) {
+                // 是一个目录
+                try {
+                    Files.createDirectories(path);
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            }else if (Files.isRegularFile(dir)){
+                // 是一个普通文件
+                try {
+                    Files.copy(dir, path);
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+
+        });
+    }
     /**
      * 删除多级目录测试
      * @param args
      */
-    public static void main(String[] args) throws IOException {
+    public static void main3(String[] args) throws IOException {
         //无法直接删除
         // Files.delete(Paths.get("D:\\Netty学习\\Netty教程源码资料 - 副本"));
         Files.walkFileTree(Paths.get("D:\\Netty学习\\Netty教程源码资料 - 副本"),new SimpleFileVisitor<Path>(){
