@@ -39,17 +39,22 @@ public class Server {
 
         serverSocketChannel.bind(new InetSocketAddress(8080));
         while (true){
-            // 3.selector的select方法
+            // 3.selector的select方法 调用该方法，如果没有事件发生则线程阻塞，有才会恢复运行
+            // select在事件未处理时不会阻塞
             selector.select();//没有事件发生就会让线程阻塞 只有四种事件其中一个发生了才会让线程继续
-            // 4.处理事件 selectedKeys 拿到一个事件集 内部包含了所有发生的事件 返回一个Set集合 注意是发生的事件！！！
+            // 4.遍历事件集合来处理事件 selectedKeys 拿到一个事件集 内部包含了所有发生的事件 返回一个Set集合 注意是发生的事件！！！
             // 要在集合中删除元素的遍历要使用迭代器进行循环 不要用 增强for
             Iterator<SelectionKey> iterator = selector.selectedKeys().iterator();
             while (iterator.hasNext()){
                  // 拿到一个发生的事件
-                SelectionKey key = iterator.next();
+                SelectionKey key = iterator.next();// 如果事件不处理则会一直保存在selectedKeys集合中
                 ServerSocketChannel channel =(ServerSocketChannel) key.channel();
-                SocketChannel socketChannel = channel.accept();
+                SocketChannel socketChannel = channel.accept();// accept事件处理
                 log.debug("socketChannel {}",socketChannel);
+
+                // 事件取消
+                key.cancel();
+
             }
         }
     }
