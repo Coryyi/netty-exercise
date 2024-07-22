@@ -22,13 +22,10 @@ public class Server {
      */
     public static void main(String[] args) throws IOException {
         // 1.创建Selector 可以管理多个 channel
-        Selector selector = Selector.open();
+        Selector selector = Selector.open();// 内部有一个集合 selectionKey
 
-
-        ByteBuffer buffer = ByteBuffer.allocate(16);
         ServerSocketChannel serverSocketChannel = ServerSocketChannel.open();
         serverSocketChannel.configureBlocking(false);
-
         // 2.建立Selector和channel的联系 将channel注册到selector
         // selectionKey就是事件发生后，通过它得到是哪个channel发生的事件
         // 注册后 selector就可以监听事件的发送，监听到某个channel事件的发生，就会放到selectionKey中
@@ -36,8 +33,7 @@ public class Server {
         // 指定监听事件 key只关注accept事件
         sscKey.interestOps(SelectionKey.OP_ACCEPT);
         log.debug("register key:{}",sscKey);
-
-        serverSocketChannel.bind(new InetSocketAddress(8080));
+        serverSocketChannel.bind(new InetSocketAddress(8089));
         while (true){
             // 3.selector的select方法 调用该方法，如果没有事件发生则线程阻塞，有才会恢复运行
             // select在事件未处理时不会阻塞
@@ -46,15 +42,50 @@ public class Server {
             // 要在集合中删除元素的遍历要使用迭代器进行循环 不要用 增强for
             Iterator<SelectionKey> iterator = selector.selectedKeys().iterator();
             while (iterator.hasNext()){
-                 // 拿到一个发生的事件
+
+                // 当socketChannel注册后，这里拿到的已发生事件可能是accept或reader 因此我们需要根据不同的事件类型不同处理
+                // 拿到一个发生的事件
                 SelectionKey key = iterator.next();// 如果事件不处理则会一直保存在selectedKeys集合中
-                ServerSocketChannel channel =(ServerSocketChannel) key.channel();
-                SocketChannel socketChannel = channel.accept();// accept事件处理
-                log.debug("socketChannel {}",socketChannel);
 
-                // 事件取消
-                key.cancel();
+                // selectedKeys集合中的元素不会自动删除，处理完后的selectedKeys仍然保留再集合中，只是事件被处理了，将触发的事件移除了
+                // 若不删除，第二次遍历还会获取到该元素，并且该元素的事件已经处理，因此再去处理就会产生空指针异常
+                // 获取到key后就将其删除
+                iterator.remove();
 
+                // 5.区分事件类型
+                if(key.isAcceptable()){ //如果是accept事件
+                    ServerSocketChannel channel =(ServerSocketChannel) key.channel();
+                    SocketChannel socketChannel = channel.accept();// accept事件处理
+                    // 事件取消
+                    /*key.cancel();*/
+                    // 处理SocketChannel
+                    socketChannel.configureBlocking(false);
+                    // 注册到selector
+                    SelectionKey scKey = socketChannel.register(selector, 0, null);
+                    scKey.interestOps(SelectionKey.OP_READ);
+                    log.debug("socketChannel {}",socketChannel);
+
+                }else if(key.isReadable()){
+                    try {
+                        SocketChannel socketChannel = (SocketChannel) key.channel();// 拿到触发事件的channel
+                        ByteBuffer buffer = ByteBuffer.allocate(16);
+
+                        int read = socketChannel.read(buffer);
+                        if (read==-1){
+                            key.cancel();
+                        }else {
+                            buffer.flip();
+                            debugRead(buffer);
+                        }
+
+                    } catch (IOException e) {
+                        // 将刚才这个key 无法处理因此只能cancel
+                        // 客户端已断开，没必要再监听该事件 会将该事件的注册也删去
+                        // 从Selector 的key集合中真正删除
+                        key.cancel();
+                        e.printStackTrace();
+                    }
+                }
             }
         }
     }
