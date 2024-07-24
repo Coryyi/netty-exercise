@@ -8,6 +8,7 @@ import java.nio.ByteBuffer;
 import java.nio.channels.*;
 import java.util.Iterator;
 import java.util.concurrent.ConcurrentLinkedQueue;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import static com.carol.netty.c1.ByteBufferUtil.debugAll;
 
@@ -26,8 +27,13 @@ public class MultiThreadServer {
         ssc.bind(new InetSocketAddress(8080));
 
         //1. 创建固定数量的worker 初始化
-        Worker worker = new Worker("worker-0");
+        Worker[] workers = new Worker[Runtime.getRuntime().availableProcessors()];// 获取电脑可用核心数
+        //Worker worker = new Worker("worker-0");
+        for (int i = 0; i < workers.length; i++) {
+            workers[i] = new Worker("worker-"+i);//建议将线程数设置为cpu核心数
+        }
 
+        AtomicInteger index = new AtomicInteger();
 
         while (true){
             // 监听事件 没有事件则阻塞
@@ -43,7 +49,9 @@ public class MultiThreadServer {
                     socketChannel.configureBlocking(false);
                     log.debug("connected..{}", ssc.getLocalAddress());
                     // 2.关联 将这个channel读写事件交给worker
-                    worker.register(socketChannel); //被boss线程调用 因此register方法内的代码都在boss线程中执行
+                    // round robin 轮询
+                    workers[index.getAndIncrement()% workers.length].register(socketChannel);
+                    //worker.register(socketChannel); //被boss线程调用 因此register方法内的代码都在boss线程中执行
 
                 }
             }
