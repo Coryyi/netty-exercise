@@ -9,8 +9,8 @@ import java.nio.charset.Charset;
 public class Client {
     public static void main(String[] args) throws IOException {
         SocketChannel sc = SocketChannel.open();
-        sc.connect(new InetSocketAddress("localhost",8089));
-        sc.write(Charset.defaultCharset().encode("12345678901234567777\n"));
+        sc.connect(new InetSocketAddress("localhost",8080));
+        sc.write(Charset.defaultCharset().encode("123456789\n"));
         System.in.read();
         System.out.println("wating...");
     }
