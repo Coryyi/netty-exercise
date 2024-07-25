@@ -1,4 +1,4 @@
-package com.carol.netty.c4;
+package com.carol.nio.c4;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -10,8 +10,8 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import static com.carol.netty.c1.ByteBufferUtil.debugAll;
-import static com.carol.netty.c1.ByteBufferUtil.debugRead;
+import static com.carol.nio.c1.ByteBufferUtil.debugAll;
+import static com.carol.nio.c1.ByteBufferUtil.debugRead;
 
 @Slf4j
 public class Server {

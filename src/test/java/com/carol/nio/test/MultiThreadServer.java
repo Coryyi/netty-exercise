@@ -1,4 +1,4 @@
-package com.carol.netty.test;
+package com.carol.nio.test;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -10,7 +10,7 @@ import java.util.Iterator;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.atomic.AtomicInteger;
 
-import static com.carol.netty.c1.ByteBufferUtil.debugAll;
+import static com.carol.nio.c1.ByteBufferUtil.debugAll;
 
 @Slf4j
 public class MultiThreadServer {

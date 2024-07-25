@@ -1,10 +1,9 @@
-package com.carol.netty.c1;
+package com.carol.nio.c1;
 
 import java.nio.ByteBuffer;
-import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 
-import static com.carol.netty.c1.ByteBufferUtil.debugAll;
+import static com.carol.nio.c1.ByteBufferUtil.debugAll;
 
 public class TestByteBufferString {
     public static void main(String[] args) {

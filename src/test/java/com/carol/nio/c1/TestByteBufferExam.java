@@ -1,8 +1,8 @@
-package com.carol.netty.c1;
+package com.carol.nio.c1;
 
 import java.nio.ByteBuffer;
 
-import static com.carol.netty.c1.ByteBufferUtil.debugAll;
+import static com.carol.nio.c1.ByteBufferUtil.debugAll;
 
 /**
  * 网络上有多条数据发送给服务端，数据之间使用 \n 进行分隔

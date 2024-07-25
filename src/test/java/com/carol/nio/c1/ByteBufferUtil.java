@@ -1,4 +1,4 @@
-package com.carol.netty.c1;
+package com.carol.nio.c1;
 
 import io.netty.util.internal.StringUtil;
 
