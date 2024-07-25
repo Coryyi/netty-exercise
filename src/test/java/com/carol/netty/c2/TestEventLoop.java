@@ -1,4 +1,4 @@
-package com.carol.netty.c1.c2;
+package com.carol.netty.c2;
 
 import io.netty.channel.DefaultEventLoopGroup;
 import io.netty.channel.EventLoopGroup;
