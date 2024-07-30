@@ -3,11 +3,62 @@
   <component name="Encoding">
     <file url="file://$PROJECT_DIR$/data.txt" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/carol/config/Config.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/carol/message/AbstractResponseMessage.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/carol/message/ChatRequestMessage.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/carol/message/ChatResponseMessage.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/carol/message/GroupChatRequestMessage.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/carol/message/GroupChatResponseMessage.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/carol/message/GroupCreateRequestMessage.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/carol/message/GroupCreateResponseMessage.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/carol/message/GroupJoinRequestMessage.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/carol/message/GroupJoinResponseMessage.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/carol/message/GroupMembersRequestMessage.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/carol/message/GroupMembersResponseMessage.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/carol/message/GroupQuitRequestMessage.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/carol/message/GroupQuitResponseMessage.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/carol/message/LoginRequestMessage.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/carol/message/LoginResponseMessage.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/carol/message/Message.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/carol/message/PingMessage.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/carol/message/PongMessage.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/carol/message/RpcRequestMessage.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/carol/message/RpcResponseMessage.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/carol/protocol/SequenceIdGenerator.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/carol/protocol/Serializer.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/carol/server/handler/GroupChatRequestMessageHandler.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/carol/server/handler/GroupJoinRequestMessageHandler.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/carol/server/handler/GroupMembersRequestMessageHandler.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/carol/server/handler/GroupQuitRequestMessageHandler.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/carol/server/handler/QuitHandler.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/carol/server/handler/RpcRequestMessageHandler.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/carol/server/service/HelloService.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/carol/server/service/HelloServiceImpl.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/carol/server/service/ServicesFactory.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/carol/server/service/UserService.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/carol/server/service/UserServiceFactory.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/carol/server/service/UserServiceMemoryImpl.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/carol/server/session/Group.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/carol/server/session/Group.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/carol/server/session/GroupSession.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/carol/server/session/GroupSession.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/carol/server/session/GroupSessionFactory.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/carol/server/session/GroupSessionFactory.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/carol/server/session/GroupSessionMemoryImpl.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/carol/server/session/GroupSessionMemoryImpl.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/carol/server/session/Session.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/carol/server/session/Session.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/carol/server/session/SessionFactory.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/carol/server/session/SessionFactory.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/carol/server/session/SessionMemoryImpl.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/carol/server/session/SessionMemoryImpl.java" charset="GBK" />
     <file url="file://$PROJECT_DIR$/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/resources/logback.xml" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/test/java/com/carol/netty/c2/CloseFutureClient.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/test/java/com/carol/netty/c3/TestNettyFuture.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/test/java/com/carol/netty/c3/TestNettyPromise.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/test/java/com/carol/netty/n1/HelloWorldClient.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/test/java/com/carol/netty/n1/HelloWorldServer.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/test/java/com/carol/nio/c1/TestByteBuffer.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/test/java/com/carol/nio/c1/TestFilesWalkFileTree.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/test/java/com/carol/nio/c1/TestGatheringWrites.java" charset="UTF-8" />
